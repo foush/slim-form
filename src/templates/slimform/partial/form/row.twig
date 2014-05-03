@@ -14,7 +14,7 @@ endif
         {% for child in element.childrenOrdered() %}
         <div class="col-sm-{{ (10 / childCount) | round(0,'floor') }}{% if noLabel and loop.first %} col-sm-offset-2{% endif %}" data-ng-class="{'has-error': formAlert && formAlert.getAlerts('{{ child.root().name() }}','{{ child.name() }}').length}">
             {{ child|formElement }}
-            <p class="help-block" data-ng-repeat="alert in formAlert && formAlert.getAlerts('{{ child.root().name() }}','{{ child.name() }}') || []">{[{alert.message}]}</p>
+            <p class="help-block" data-ng-repeat="alert in formAlert && formAlert.getAlerts('{{ child.root().name() }}','{{ child.name() }}') || []">{{ngOpen()}}alert.message{{ngClose()}}</p>
         </div>
         {% endfor %}
     {% endif %}

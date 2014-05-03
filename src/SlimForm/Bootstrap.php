@@ -8,6 +8,9 @@ class Bootstrap {
 
     protected $_view;
 
+    protected $_ngOpen = '[[';
+    protected $_ngClose = ']]';
+
     private function __construct() {
 
     }
@@ -38,5 +41,39 @@ class Bootstrap {
         }
         return $this->_view;
     }
+
+    /**
+     * @param string $ngClose
+     */
+    public function setNgClose($ngClose)
+    {
+        $this->_ngClose = $ngClose;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNgClose()
+    {
+        return $this->_ngClose;
+    }
+
+    /**
+     * @param string $ngOpen
+     */
+    public function setNgOpen($ngOpen)
+    {
+        $this->_ngOpen = $ngOpen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNgOpen()
+    {
+        return $this->_ngOpen;
+    }
+
+
 
 }
