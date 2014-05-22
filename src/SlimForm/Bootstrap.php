@@ -11,6 +11,10 @@ class Bootstrap {
     protected $_ngOpen = '[[';
     protected $_ngClose = ']]';
 
+    protected $_entityManagerCallable;
+
+    protected $_entityManager;
+
     private function __construct() {
 
     }
@@ -20,6 +24,24 @@ class Bootstrap {
             self::$_instance = new Bootstrap();
         }
         return self::$_instance;
+    }
+
+    public function setEntityManagerCallable($callable) {
+        if (!is_callable($callable)) {
+            throw new \InvalidArgumentException('The provided parameter is not callable.');
+        }
+        $this->_entityManagerCallable = $callable;
+        return $this;
+    }
+
+    public function getEntityManager() {
+        if (!isset($this->_entityManager)) {
+            if (!isset($this->_entityManagerCallable)) {
+                throw new \RuntimeException('Please provide a callable to this bootstrap class which returns the entity manager.');
+            }
+            $this->_entityManager = call_user_func($this->_entityManagerCallable);
+        }
+        return $this->_entityManager;
     }
 
     public function setAnnotationReader(ReaderInterface $reader) {

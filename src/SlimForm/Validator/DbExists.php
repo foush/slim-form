@@ -1,6 +1,7 @@
 <?php
 namespace SlimForm\Validator;
 
+use SlimForm\Bootstrap;
 use SlimForm\Element\Element;
 
 /**
@@ -28,7 +29,7 @@ class DbExists extends AbstractValidator {
      */
     public function validate() {
         /* @var \Doctrine\ORM\EntityManager $em */
-        $em = \Slim\Slim::getInstance()->em;
+        $em = $this->_getEntityManager();
         $entity = $em->getRepository($this->_options[self::OPT_ENTITY])->findOneBy(array($this->_options[self::OPT_PROPERTY] => $this->_element->getValue()));
         if ($entity !== null) {
             return true;
@@ -41,6 +42,6 @@ class DbExists extends AbstractValidator {
      * @return \Doctrine\ORM\EntityManager
      */
     protected function _getEntityManager() {
-        return \Slim\Slim::getInstance()->em;
+        return Bootstrap::getInstance()->getEntityManager();
     }
 }
