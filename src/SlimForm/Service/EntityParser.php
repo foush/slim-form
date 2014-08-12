@@ -36,7 +36,7 @@ class EntityParser {
      * @return \SlimForm\Annotation\Form
      */
     public function parseModel($model) {
-        $reader = new \SlimForm\Reader($model);
+        $reader = new \SlimForm\Reader(\Doctrine\Common\Util\ClassUtils::getClass($model));
         // get entity's class annotation
         /* @var $form \SlimForm\Annotation\Form */
         $form = $reader->getClassAnnotation();
