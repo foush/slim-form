@@ -3,6 +3,7 @@
 namespace SlimForm\Service;
 use SlimForm\Annotation\Element;
 use SlimForm\Element\Element as FormElement;
+use Doctrine\Common\Persistence\Proxy;
 
 /**
  * Consumes a Doctrine model and parses it into a Form element
@@ -26,6 +27,9 @@ class EntityParser {
     }
 
     public function modelToElement($model) {
+	if ($model instanceof Proxy) {
+            $model->__load();
+        }
         return $this->createFormElement($this->parseModel($model), $model);
     }
 
